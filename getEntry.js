@@ -12,6 +12,10 @@ MongoClient.connect(url, function(err, db) {
 
     var dbo = db.db("hw13");
     var coll = dbo.collection("companies");
+    // var s = coll.find().stream();
+    // s.on("data", function(item) { console.log(item)});
+    // s.on("end", function() {console.log("end of data");});
+
     console.log("Success!");
     db.close();
 });
