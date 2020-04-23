@@ -18,7 +18,10 @@ http.createServer((request, response) => {
         var dbo = db.db("hw13");
         var coll = dbo.collection("companies");
         var s = coll.find().stream();
-        s.on("data", function(item) {  console.log(item);  response.write(JSON.stringify(item));  });
-        s.on("end", function() {console.log("end of data"); console.log("Success!"); response.end("Done!");});
+        s.on("data", function(item) { response.write(JSON.stringify(item)); });
+        s.on("end", function() {
+            console.log("end of data");
+            console.log("Success!");
+        });
     });
 }).listen(port);
