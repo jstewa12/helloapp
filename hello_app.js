@@ -1,8 +1,6 @@
 const http = require('http');
-const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 
-const app = express();
 const url = "mongodb+srv://jstewa12:JJStewart768@cluster0-l60ir.mongodb.net/test?retryWrites=true&w=majority";
 http.createServer((request, response) => {
     if(request.url === '/favicon.ico') {
