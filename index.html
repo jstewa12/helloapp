@@ -1,1 +1,61 @@
-asdf
+<!doctype html>
+<html>
+<head>
+    <title>Stonks</title>
+    <meta charset="utf-8" />
+    <style>
+        body {
+            text-align:center;
+        }
+
+        h1 {
+            color: #F1AA19;
+            font-size:70px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top:20px;
+            margin-bottom:20px;
+        }
+
+        p {
+            color: #17BEBB;
+            font-size:20px;
+            font-weight:bold;
+            margin-top:0px;
+        }
+    </style>
+    <script language="javascript">
+        function validate() {
+            alert("called validate");
+            var dropDown = document.getElementById("inputType");
+            var selected = dropDown.options[dropDown.selectedIndex].value;
+             if (selected == "Company Name") {
+                 alert("Company Name: " + document.getElementById("TXT").value);
+                 word = document.getElementById("TXT").value;
+                 document.write(fetch("http://localhost:8080/"));
+             } else if (selected == "Stock Ticker") {
+                 alert("Stock Ticker: " + document.getElementById("TXT").value);
+                 word = document.getElementById("TXT").value;
+                 document.write(fetch("http://localhost:8080/"));
+             }
+        }
+    </script>
+</head>
+<body>
+    <h1>STONKS</h1>
+    <form>
+        <p>
+            Please enter a company name or stock ticker:
+            <br /><br />
+            <select id="inputType">
+                <option value="Company Name">Company Name</option>
+                <option value="Stock Ticker">Stock Ticker</option>
+            </select>
+            <br /><br />
+            <input type="input" id="TXT"/>
+            <br /><br />
+            <input type="submit" value="Send Data" onclick="validate()">
+        </p>
+    </form>
+</body>
+</html>
