@@ -10,17 +10,19 @@ http.createServer((request, response) => {
         return;
     }
 
-    MongoClient.connect(url, function(err, db) {
-        if (err) {
-            console.log(err);
-            return;
-        }
+    console.log("Success!");
 
-        var dbo = db.db("hw13");
-        var coll = dbo.collection("companies");
-        var s = coll.find().stream();
-        s.on("data", function(item) {console.log(item)});
-        s.on("end", function() {console.log("end of data"); db.close();});
-        response.end();
-    });
+    // MongoClient.connect(url, function(err, db) {
+    //     if (err) {
+    //         console.log(err);
+    //         return;
+    //     }
+    //
+    //     var dbo = db.db("hw13");
+    //     var coll = dbo.collection("companies");
+    //     var s = coll.find().stream();
+    //     s.on("data", function(item) {console.log(item)});
+    //     s.on("end", function() {console.log("end of data");});
+    //     response.send(s);
+    // });
 }).listen(8080);
