@@ -6,7 +6,6 @@ const app = express();
 const url = "mongodb+srv://jstewa12:JJStewart768@cluster0-l60ir.mongodb.net/test?retryWrites=true&w=majority";
 http.createServer((request, response) => {
     if(request.url === '/favicon.ico') {
-        res.status(204);
         res.end();
         return;
     }
@@ -21,6 +20,7 @@ http.createServer((request, response) => {
         var coll = dbo.collection("companies");
         var s = coll.find().stream();
         s.on("data", function(item) {console.log(item)});
-        s.on("end", function() {console.log("end of data");});
+        s.on("end", function() {console.log("end of data"); db.close();});
+        response.end();
     });
 }).listen(8080);
