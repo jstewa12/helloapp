@@ -1,3 +1,4 @@
+const adr = require('url');
 const http = require('http');
 const MongoClient = require('mongodb').MongoClient;
 
@@ -9,6 +10,10 @@ http.createServer((request, response) => {
         return;
     }
 
+    var compQuery = adr.parse(request.url, true).query;
+    var txt = compQuery.txt;
+    var type = compQuery.type;
+
     MongoClient.connect(url, function(err, db) {
         if (err) {
             console.log(err);
@@ -19,14 +24,21 @@ http.createServer((request, response) => {
         var coll = dbo.collection("companies");
         var s = coll.find().stream();
         s.on("data", function(item) {
-            console.log(item);
-            response.write(JSON.stringify(item));
+            if (item["ticker"] != null) {
+                if (type == "Company Name") {
+                    if (item["name"] == txt) {
+                        response.write(item["name"] + ", " + item["ticker"] + "\n");
+                    }
+                } else if (type == "Stock Ticker") {
+                    if (item["ticker"] == txt) {
+                        response.write(item["name"] + ", " + item["ticker"] + "\n");
+                    }
+                }
+            }
         });
-        
+
         s.on("end", function() {
-            console.log("end of data");
-            console.log("Success!");
-            response.end("Done!");
+            response.end();
         });
     });
 }).listen(port);
